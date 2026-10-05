@@ -226,22 +226,27 @@ X_futuro_5_scaled = scaler.transform(anios_futuros_5[['Anio']])
 consumo_predicho_5 = mejor_modelo.predict(X_futuro_5_scaled)
 anios_futuros_5['Consumo_m3_Estimado'] = consumo_predicho_5
 
-df_plot = pd.concat([
-    df_anual.assign(Tipo=t("t_hist")),
-    anios_futuros_5.rename(columns={'Consumo_m3_Estimado': 'Verbrauch'})[['Anio', 'Verbrauch']].assign(Tipo=t("t_pred"))
-])
-fig_pred = px.bar(df_plot, x="Anio", y="Verbrauch", color="Tipo", title=t("chart2"), labels={"Anio": t("x_axis"), "Tipo": t("t_type")})
+# Añadir los precios y costes directamente aquí para que los datos coincidan
+precios_peor_caso_kwh = [0.14, 0.16, 0.18, 0.20, 0.22]
+precios_peor_caso_m3 = [p * 10 for p in precios_peor_caso_kwh]
+anios_futuros_5['Precio_Est_m3_EUR'] = precios_peor_caso_m3
+anios_futuros_5['Costo_Total_EUR'] = anios_futuros_5['Consumo_m3_Estimado'] * anios_futuros_5['Precio_Est_m3_EUR']
+
+# Mostrar la tabla exacta que pide el usuario
+st.write("Datos de Predicción (Consumo, Precio y Gasto Total):")
+st.dataframe(anios_futuros_5, use_container_width=True)
+
+# Actualizar la gráfica para mostrar el coste total proyectado
+fig_pred = px.bar(anios_futuros_5, x="Anio", y="Costo_Total_EUR", 
+                  title="Predicción de Gasto a 5 Años (€)", 
+                  labels={"Anio": t("x_axis"), "Costo_Total_EUR": "Total €"},
+                  text_auto='.2f')
+fig_pred.update_traces(marker_color='red')
 st.plotly_chart(fig_pred, use_container_width=True)
 
 
 st.header(t("sec4"))
 st.error(t("worst_case"))
-
-precios_peor_caso_kwh = [0.14, 0.16, 0.18, 0.20, 0.22]
-precios_peor_caso_m3 = [p * 10 for p in precios_peor_caso_kwh]
-
-anios_futuros_5['Precio_Est_m3_EUR'] = precios_peor_caso_m3
-anios_futuros_5['Costo_Total_EUR'] = anios_futuros_5['Consumo_m3_Estimado'] * anios_futuros_5['Precio_Est_m3_EUR']
 
 col1, col2 = st.columns([1, 1])
 
