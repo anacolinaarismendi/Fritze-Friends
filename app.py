@@ -102,9 +102,9 @@ translations = {
         "Deutsch": "🏗️ 5. Investitionsvergleich: Gasinstallation vs. Hybrid-System"
     },
     "comp_intro": {
-        "Español": "Dado que también hay que contemplar los costes de instalación (Instalación de Gas nueva = 40,000 € vs Instalación de Bomba de Calor Híbrida = 92,500 €), hemos extendido el modelo a **15 años** para observar las correlaciones y ver el punto exacto en el que ambos sistemas cruzan rentabilidades.",
-        "English": "Since installation costs must also be considered (New Gas Installation = €40,000 vs Hybrid Heat Pump Installation = €92,500), we have extended the model to **15 years** to observe correlations and see the exact point where both systems cross profitabilities.",
-        "Deutsch": "Da auch Installationskosten berücksichtigt werden müssen (Neue Gasinstallation = 40.000 € vs. Hybrid-Wärmepumpeninstallation = 92.500 €), haben wir das Modell auf **15 Jahre** erweitert, um Korrelationen zu beobachten und den genauen Punkt zu sehen, an dem sich die Rentabilität beider Systeme kreuzt."
+        "Español": "Dado que también hay que contemplar los costes de instalación (Instalación de Gas nueva = 20,000 € vs Instalación de Bomba de Calor Híbrida = 92,500 €; con un descuento del 30% se aplica 92,500 × 0,70 = 64,750 €), hemos extendido el modelo a **15 años** para observar las correlaciones y ver el punto exacto en el que ambos sistemas cruzan rentabilidades.",
+        "English": "Since installation costs must also be considered (New Gas Installation = €20,000 vs Hybrid Heat Pump Installation = €92,500; with a 30% discount, the effective cost is 92,500 × 0.70 = €64,750), we have extended the model to **15 years** to observe correlations and see the exact point where both systems cross profitabilities.",
+        "Deutsch": "Da auch Installationskosten berücksichtigt werden müssen (Neue Gasinstallation = 20.000 € vs. Hybrid-Wärmepumpeninstallation = 92.500 €; mit 30% Rabatt ergibt sich 92.500 × 0,70 = 64.750 €), haben wir das Modell auf **15 Jahre** erweitert, um Korrelationen zu beobachten und den genauen Punkt zu sehen, an dem sich die Rentabilität beider Systeme kreuzt."
     },
     "opt1": {
         "Español": "Opción 1: Solo Gas (Inst. 40k)",
@@ -296,7 +296,8 @@ precio_elec = 0.30
 anios_futuros['Gasto_Factura_Hibrido'] = (anios_futuros['Elec_WP_kWh'] * precio_elec) + (anios_futuros['Gas_Hibrido_m3'] * anios_futuros['Precio_Est_Gas_m3'])
 
 costo_instalacion_hibrido_sin_sub = 92500
-costo_instalacion_hibrido_con_sub = 92500 * 0.70 
+descuento_hibrido = 0.30
+costo_instalacion_hibrido_con_sub = costo_instalacion_hibrido_sin_sub * (1 - descuento_hibrido)  # 92,500 × 0.70 = 64,750 €
 
 anios_futuros['Acumulado_Hibrido_Sin_Sub'] = costo_instalacion_hibrido_sin_sub + anios_futuros['Gasto_Factura_Hibrido'].cumsum()
 anios_futuros['Acumulado_Hibrido_Con_Sub'] = costo_instalacion_hibrido_con_sub + anios_futuros['Gasto_Factura_Hibrido'].cumsum()
