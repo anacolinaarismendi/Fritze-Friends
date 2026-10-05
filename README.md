@@ -7,9 +7,9 @@ Este proyecto es una aplicación interactiva desarrollada en **Streamlit** que u
 ## 🌟 Características Principales
 
 1. **Internacionalización (i18n):** La aplicación soporta tres idiomas nativos (Español, Inglés y Alemán) seleccionables desde el menú lateral.
-2. **Entrenamiento en Tiempo Real:** Utiliza el algoritmo `RandomForestRegressor` de `scikit-learn` para aprender del histórico de lecturas del medidor (últimos 10 años) y proyectar el consumo a 15 años vista.
+2. **Entrenamiento en Tiempo Real:** Utiliza el algoritmo `LinearRegression` de `scikit-learn` para aprender del histórico de lecturas del medidor (últimos 10 años) y proyectar el consumo a 5 años (con una proyección extendida a 15 años).
 3. **Análisis del Peor Escenario:** Simula el impacto del mercado de emisiones europeo (ETS-2) a partir de 2027, mostrando cómo la inflación y los bonos de carbono afectarán la factura.
-4. **Calculadora de Amortización:** Compara los costes acumulados de instalación y consumo de dos opciones:
+4. **Calculadora de Amortización (15 Años):** Compara los costes acumulados de instalación y consumo de dos opciones:
    * Instalación de gas 100%.
    * Sistema Híbrido (*Wärmepumpe* al 80% + Gas al 20%) con y sin subvenciones gubernamentales (ej. KfW).
 
