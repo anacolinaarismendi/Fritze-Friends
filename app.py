@@ -5,7 +5,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.linear_model import LinearRegression
 
 st.set_page_config(page_title="Predicción de Gasto / Cost Prediction", layout="wide")
 
@@ -37,9 +37,9 @@ translations = {
         "Deutsch": "2. KI-Modelltraining"
     },
     "training": {
-        "Español": "Entrenando `RandomForestRegressor` con los datos históricos escalados...",
-        "English": "Training `RandomForestRegressor` with scaled historical data...",
-        "Deutsch": "Training des `RandomForestRegressor` mit skalierten historischen Daten..."
+        "Español": "Entrenando `LinearRegression` con los datos históricos escalados...",
+        "English": "Training `LinearRegression` with scaled historical data...",
+        "Deutsch": "Training des `LinearRegression` mit skalierten historischen Daten..."
     },
     "success": {
         "Español": "¡Modelo entrenado con éxito!",
@@ -215,7 +215,7 @@ y = df_anual['Verbrauch']
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
-mejor_modelo = RandomForestRegressor(random_state=42, n_estimators=100)
+mejor_modelo = LinearRegression()
 mejor_modelo.fit(X_scaled, y)
 st.success(t("success"))
 
